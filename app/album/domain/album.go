@@ -1,8 +1,13 @@
 package domain
 
+import (
+	"web-wervice/app/shared/domain/aggregate"
+)
+
 type Album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
+	ID        string
+	Title     string
+	Artist    string
+	Price     float64
+	Aggregate aggregate.Aggregate[Album]
 }

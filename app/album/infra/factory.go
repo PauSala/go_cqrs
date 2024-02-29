@@ -4,6 +4,7 @@ import (
 	"web-wervice/app/album/application/create"
 	"web-wervice/app/album/application/find"
 	"web-wervice/app/album/domain"
+	"web-wervice/app/shared/domain/bus/command"
 )
 
 var albums = []domain.Album{
@@ -17,10 +18,10 @@ type AlbumServiceFactory struct {
 	AlbumCreator create.AlbumCreator
 }
 
-func NewAlbumServiceFactory() AlbumServiceFactory {
+func NewAlbumServiceFactory(commandBus command.CommandBus) AlbumServiceFactory {
 	albumRepository := NewInMemoryAlbumRepository(albums)
 	return AlbumServiceFactory{
 		AlbumFinder:  find.AlbumFinder{AlbumRepository: albumRepository},
-		AlbumCreator: create.AlbumCreator{AlbumRepository: albumRepository},
+		AlbumCreator: create.AlbumCreator{AlbumRepository: albumRepository, CommandBus: commandBus},
 	}
 }

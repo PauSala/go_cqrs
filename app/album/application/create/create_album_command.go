@@ -1,32 +1,16 @@
 package create
 
 type CreateAlbumCommand struct {
-	id     string
-	title  string
-	artist string
-	price  float64
+	Id     string  `json:"id"`
+	Title  string  `json:"title"`
+	Artist string  `json:"artist"`
+	Price  float64 `json:"price"`
 }
 
 func NewCreateAlbumCommand(id string, title string, artist string, price float64) CreateAlbumCommand {
-	return CreateAlbumCommand{id: id, title: title, artist: artist, price: price}
+	return CreateAlbumCommand{Id: id, Title: title, Artist: artist, Price: price}
 }
 
 func (a *CreateAlbumCommand) CommandId() string {
 	return "CreateAlbumCommand"
-}
-
-func (a *CreateAlbumCommand) Id() string {
-	return a.id
-}
-
-func (a *CreateAlbumCommand) Tittle() string {
-	return a.title
-}
-
-func (a *CreateAlbumCommand) Artist() string {
-	return a.artist
-}
-
-func (a *CreateAlbumCommand) Price() float64 {
-	return a.price
 }

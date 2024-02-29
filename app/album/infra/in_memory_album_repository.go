@@ -6,7 +6,7 @@ type InMemoryAlbumRepository struct {
 	albums []domain.Album
 }
 
-func (r *InMemoryAlbumRepository) Insert(album domain.Album) {
+func (r *InMemoryAlbumRepository) Save(album domain.Album) {
 	r.albums = append(r.albums, album)
 }
 

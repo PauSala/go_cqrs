@@ -16,7 +16,7 @@ import (
 
 var commandBus = commandShared.CreateInMemoryCommandBus()
 var queryBus = queryShared.CreateInMemoryQueryBus()
-var factory = infra.NewAlbumServiceFactory()
+var factory = infra.NewAlbumServiceFactory(commandBus)
 
 func main() {
 	var command_handler command.CommandHandler = create.CreateAlbumCommandHandler{AlbumCreator: factory.AlbumCreator}

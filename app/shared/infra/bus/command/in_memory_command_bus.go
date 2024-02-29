@@ -22,6 +22,11 @@ func (b *InMemoryCommandBus) Dispatch(c command.Command) error {
 	return errors.New("no handler for command: " + c.CommandId())
 }
 
+func (b *InMemoryCommandBus) Publish(event any) error {
+	println("publishing event: ", event)
+	return nil
+}
+
 func CreateInMemoryCommandBus() *InMemoryCommandBus {
 	return &InMemoryCommandBus{
 		handlers: make(map[string]command.CommandHandler),

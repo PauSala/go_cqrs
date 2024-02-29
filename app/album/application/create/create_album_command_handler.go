@@ -2,7 +2,6 @@ package create
 
 import (
 	"fmt"
-	"web-wervice/app/album/domain"
 	command "web-wervice/app/shared/domain/bus/command"
 )
 
@@ -15,10 +14,9 @@ func (c CreateAlbumCommandHandler) Handle(command command.Command) error {
 	if !ok {
 		return fmt.Errorf("invalid command type expected *CreateAlbumCommand, got %T", command)
 	}
-	id := createAlbumCommand.Id()
-	title := createAlbumCommand.Tittle()
-	artist := createAlbumCommand.Artist()
-	price := createAlbumCommand.Price()
-	album := domain.Album{Artist: artist, ID: id, Price: price, Title: title}
-	return c.AlbumCreator.Run(album)
+	id := createAlbumCommand.Id
+	title := createAlbumCommand.Title
+	artist := createAlbumCommand.Artist
+	price := createAlbumCommand.Price
+	return c.AlbumCreator.Run(artist, id, price, title)
 }
