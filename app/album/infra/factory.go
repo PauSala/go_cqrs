@@ -2,6 +2,7 @@ package infra
 
 import (
 	"web-wervice/app/album/application"
+	"web-wervice/app/album/application/create"
 	"web-wervice/app/album/domain"
 )
 
@@ -13,7 +14,7 @@ var albums = []domain.Album{
 
 type AlbumServiceFactory struct {
 	GetAlbumsService    application.GetAlbumsService
-	SaveAlbumService    application.SaveAlbumService
+	SaveAlbumService    create.AlbumCreator
 	GetAllAlbumsService application.GetAllAlbumsService
 }
 
@@ -21,7 +22,7 @@ func NewAlbumServiceFactory() AlbumServiceFactory {
 	albumRepository := NewInMemoryAlbumRepository(albums)
 	return AlbumServiceFactory{
 		GetAlbumsService:    application.GetAlbumsService{AlbumRepository: albumRepository},
-		SaveAlbumService:    application.SaveAlbumService{AlbumRepository: albumRepository},
+		SaveAlbumService:    create.AlbumCreator{AlbumRepository: albumRepository},
 		GetAllAlbumsService: application.GetAllAlbumsService{AlbumRepository: albumRepository},
 	}
 }

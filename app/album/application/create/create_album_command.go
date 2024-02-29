@@ -1,10 +1,14 @@
-package command
+package create
 
 type CreateAlbumCommand struct {
 	id     string
 	title  string
 	artist string
 	price  float64
+}
+
+func (a *CreateAlbumCommand) CommandId() string {
+	return "CreateAlbumCommand"
 }
 
 func (a *CreateAlbumCommand) Id() string {

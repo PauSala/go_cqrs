@@ -1,3 +1,5 @@
 package query
 
-type Query[Response any] interface{}
+type Query interface {
+	QueryId() string
+}

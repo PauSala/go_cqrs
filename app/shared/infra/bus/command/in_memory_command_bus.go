@@ -10,20 +10,20 @@ type InMemoryCommandBus struct {
 }
 
 func (b *InMemoryCommandBus) RegisterHandler(c command.Command, h command.CommandHandler) {
-	b.handlers[c.Id()] = h
+	b.handlers[c.CommandId()] = h
+}
+
+func (b *InMemoryCommandBus) Dispatch(c command.Command) error {
+	handler := b.handlers[c.CommandId()]
+	if handler != nil {
+		handler.Handle(c)
+	}
+	//TODO: type errors
+	return errors.New("no handler for command: " + c.CommandId())
 }
 
 func CreateInMemoryCommandBus() *InMemoryCommandBus {
 	return &InMemoryCommandBus{
 		handlers: make(map[string]command.CommandHandler),
 	}
-}
-
-func (b *InMemoryCommandBus) Dispatch(c command.Command) error {
-	handler := b.handlers[c.Id()]
-	if handler != nil {
-		handler.Handle(c)
-	}
-	//TODO: type errors
-	return errors.New("no handler for command: " + c.Id())
 }

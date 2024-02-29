@@ -1,11 +1,12 @@
-package application
+package create
 
 import "web-wervice/app/album/domain"
 
-type SaveAlbumService struct {
+type AlbumCreator struct {
 	AlbumRepository domain.AlbumRepository
 }
 
-func (r *SaveAlbumService) Run(album domain.Album) {
+func (r *AlbumCreator) Run(album domain.Album) error {
 	r.AlbumRepository.Insert(album)
+	return nil
 }
