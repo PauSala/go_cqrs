@@ -17,8 +17,7 @@ func (r *AlbumCreator) Run(artist string, id string, price float64, title string
 	Title := domain.NewAlbumTitle(title)
 	album := domain.NewAlbum(Id, Title, Artist, Price)
 	r.AlbumRepository.Save(album)
-	var events = album.Aggregate.PulldomainEvents()
-	r.CommandBus.Publish(events)
+	r.CommandBus.Publish(album.Aggregate.PulldomainEvents())
 	return nil
 }
 
