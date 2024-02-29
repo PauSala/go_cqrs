@@ -7,6 +7,10 @@ type CreateAlbumCommand struct {
 	price  float64
 }
 
+func NewCreateAlbumCommand(id string, title string, artist string, price float64) CreateAlbumCommand {
+	return CreateAlbumCommand{id: id, title: title, artist: artist, price: price}
+}
+
 func (a *CreateAlbumCommand) CommandId() string {
 	return "CreateAlbumCommand"
 }

@@ -2,31 +2,38 @@ package main
 
 import (
 	"net/http"
+	create "web-wervice/app/album/application/create"
+	find "web-wervice/app/album/application/find"
 	album "web-wervice/app/album/domain"
 	infra "web-wervice/app/album/infra"
+	command "web-wervice/app/shared/domain/bus/command"
+	query "web-wervice/app/shared/domain/bus/query"
+	commandShared "web-wervice/app/shared/infra/bus/command"
+	queryShared "web-wervice/app/shared/infra/bus/query"
 
 	"github.com/gin-gonic/gin"
 )
 
+var commandBus = commandShared.CreateInMemoryCommandBus()
+var queryBus = queryShared.CreateInMemoryQueryBus()
+var factory = infra.NewAlbumServiceFactory()
+
 func main() {
+	var command_handler command.CommandHandler = create.CreateAlbumCommandHandler{AlbumCreator: factory.AlbumCreator}
+	commandBus.RegisterHandler(&create.CreateAlbumCommand{}, command_handler)
+
+	var query_handler query.QueryHandler = find.FindAlbumQueryHandler{AlbumFinder: factory.AlbumFinder}
+	queryBus.RegisterHandler(&find.FindAlbumQuery{}, query_handler)
+
 	router := gin.Default()
-	router.GET("/albums", getAlbums)
-	router.GET("/albums/:id", getAlbumByID)
-	router.POST("/albums", postAlbums)
+	/* router.GET("/albums", getAlbums) */
+	router.GET("/albums/:id", albumFinderController)
+	router.POST("/albums", postAlbumController)
 	router.Run("localhost:8080")
 }
 
-var factory = infra.NewAlbumServiceFactory()
-
-// getAlbums responds with the list of all albums as JSON.
-func getAlbums(c *gin.Context) {
-	service := factory.GetAllAlbumsService
-	albums := service.Run()
-	c.IndentedJSON(http.StatusOK, albums)
-}
-
-// postAlbums adds an Album from JSON received in the request body.
-func postAlbums(c *gin.Context) {
+// postAlbumController adds an Album from JSON received in the request body.
+func postAlbumController(c *gin.Context) {
 	var newAlbum album.Album
 
 	// Call BindJSON to bind the received JSON to
@@ -35,18 +42,25 @@ func postAlbums(c *gin.Context) {
 		return
 	}
 
-	service := factory.SaveAlbumService
-	service.Run(newAlbum)
+	command := create.NewCreateAlbumCommand(newAlbum.ID, newAlbum.Title, newAlbum.Artist, newAlbum.Price)
+	res := commandBus.Dispatch(&command)
+	if res != nil {
+		println("Error creating album" + res.Error())
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "Error creating album"})
+		return
+	}
+
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
-// getAlbumByID locates the Album whose ID value matches the id
+// albumFinderController locates the Album whose ID value matches the id
 // parameter sent by the client, then returns that Album as a response.
-func getAlbumByID(c *gin.Context) {
+func albumFinderController(c *gin.Context) {
 
 	id := c.Param("id")
-	service := factory.GetAlbumsService
-	album, err := service.Run(id)
+
+	query := find.NewFindAlbumQuery(id)
+	album, err := queryBus.Ask(&query)
 	if err == nil {
 		c.IndentedJSON(http.StatusOK, album)
 		return

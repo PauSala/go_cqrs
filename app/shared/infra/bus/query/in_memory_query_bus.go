@@ -21,7 +21,7 @@ func (b *InMemoryQueryBus) Ask(c query.Query) (interface{}, error) {
 	return nil, errors.New("no handler for command: " + c.QueryId())
 }
 
-func CreateInMemoryCommandBus() *InMemoryQueryBus {
+func CreateInMemoryQueryBus() *InMemoryQueryBus {
 	return &InMemoryQueryBus{
 		handlers: make(map[string]query.QueryHandler),
 	}

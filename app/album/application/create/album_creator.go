@@ -10,3 +10,7 @@ func (r *AlbumCreator) Run(album domain.Album) error {
 	r.AlbumRepository.Insert(album)
 	return nil
 }
+
+func NewAlbumCreator(r domain.AlbumRepository) *AlbumCreator {
+	return &AlbumCreator{AlbumRepository: r}
+}

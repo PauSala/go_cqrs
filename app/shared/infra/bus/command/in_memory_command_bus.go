@@ -16,7 +16,7 @@ func (b *InMemoryCommandBus) RegisterHandler(c command.Command, h command.Comman
 func (b *InMemoryCommandBus) Dispatch(c command.Command) error {
 	handler := b.handlers[c.CommandId()]
 	if handler != nil {
-		handler.Handle(c)
+		return handler.Handle(c)
 	}
 	//TODO: type errors
 	return errors.New("no handler for command: " + c.CommandId())

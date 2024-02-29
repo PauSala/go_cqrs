@@ -1,4 +1,4 @@
-package query
+package find
 
 import "web-wervice/app/album/domain"
 
