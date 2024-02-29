@@ -22,7 +22,7 @@ func (m *AlbumNotFound) Error() string {
 
 func (r *InMemoryAlbumRepository) GetByID(id string) (domain.Album, error) {
 	for _, album := range r.albums {
-		if album.ID == id {
+		if album.ID.Value() == id {
 			return album, nil
 		}
 	}

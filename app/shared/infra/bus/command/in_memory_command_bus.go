@@ -2,7 +2,9 @@ package command
 
 import (
 	"errors"
+	"fmt"
 	"web-wervice/app/shared/domain/bus/command"
+	"web-wervice/app/shared/domain/bus/event"
 )
 
 type InMemoryCommandBus struct {
@@ -22,8 +24,10 @@ func (b *InMemoryCommandBus) Dispatch(c command.Command) error {
 	return errors.New("no handler for command: " + c.CommandId())
 }
 
-func (b *InMemoryCommandBus) Publish(event any) error {
-	println("publishing event: ", event)
+func (b *InMemoryCommandBus) Publish(event []event.DomainEvent) error {
+	for _, item := range event {
+		fmt.Printf("Publish %+v\n", item.ToPrimitives())
+	}
 	return nil
 }
 

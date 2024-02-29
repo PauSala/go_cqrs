@@ -2,7 +2,6 @@ package create
 
 import (
 	"web-wervice/app/album/domain"
-	aggregate "web-wervice/app/shared/domain/aggregate"
 	"web-wervice/app/shared/domain/bus/command"
 )
 
@@ -12,14 +11,14 @@ type AlbumCreator struct {
 }
 
 func (r *AlbumCreator) Run(artist string, id string, price float64, title string) error {
-	album := domain.Album{
-		Artist:    artist,
-		ID:        id,
-		Price:     price,
-		Title:     title,
-		Aggregate: aggregate.Aggregate[domain.Album]{DomainEvents: make([]domain.Album, 0)}}
+	Artist := domain.NewAlbumArtist(artist)
+	Id := domain.NewAlbumId(id)
+	Price := domain.NewAlbumPrice(price)
+	Title := domain.NewAlbumTitle(title)
+	album := domain.NewAlbum(Id, Title, Artist, Price)
 	r.AlbumRepository.Save(album)
-	r.CommandBus.Publish(album)
+	var events = album.Aggregate.PulldomainEvents()
+	r.CommandBus.Publish(events)
 	return nil
 }
 

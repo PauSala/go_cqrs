@@ -1,20 +1,24 @@
 package aggregate
 
-type AggregateRoot[T any] interface {
-	PulldomainEvents() []T
-	Record(domainEvent T)
+import (
+	"web-wervice/app/shared/domain/bus/event"
+)
+
+type AggregateRoot interface {
+	PulldomainEvents() []event.DomainEvent
+	Record(domainEvent event.DomainEvent)
 }
 
-type Aggregate[T any] struct {
-	DomainEvents []T
+type Aggregate struct {
+	DomainEvents []event.DomainEvent
 }
 
-func (a *Aggregate[T]) Record(domainEvent T) {
+func (a *Aggregate) Record(domainEvent event.DomainEvent) {
 	a.DomainEvents = append(a.DomainEvents, domainEvent)
 }
 
-func (a *Aggregate[T]) PulldomainEvents() []T {
+func (a *Aggregate) PulldomainEvents() []event.DomainEvent {
 	domainEvents := a.DomainEvents
-	a.DomainEvents = []T{}
+	a.DomainEvents = []event.DomainEvent{}
 	return domainEvents
 }

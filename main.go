@@ -4,7 +4,6 @@ import (
 	"net/http"
 	create "web-wervice/app/album/application/create"
 	find "web-wervice/app/album/application/find"
-	album "web-wervice/app/album/domain"
 	infra "web-wervice/app/album/infra"
 	command "web-wervice/app/shared/domain/bus/command"
 	query "web-wervice/app/shared/domain/bus/query"
@@ -34,7 +33,7 @@ func main() {
 
 // postAlbumController adds an Album from JSON received in the request body.
 func postAlbumController(c *gin.Context) {
-	var newAlbum album.Album
+	var newAlbum create.CreateAlbumCommand
 
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.
@@ -42,15 +41,14 @@ func postAlbumController(c *gin.Context) {
 		return
 	}
 
-	command := create.NewCreateAlbumCommand(newAlbum.ID, newAlbum.Title, newAlbum.Artist, newAlbum.Price)
+	command := create.NewCreateAlbumCommand(newAlbum.Id, newAlbum.Title, newAlbum.Artist, newAlbum.Price)
 	res := commandBus.Dispatch(&command)
 	if res != nil {
 		println("Error creating album" + res.Error())
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "Error creating album"})
 		return
 	}
-
-	c.IndentedJSON(http.StatusCreated, newAlbum)
+	c.JSON(http.StatusCreated, gin.H{"message": "Album created"})
 }
 
 // albumFinderController locates the Album whose ID value matches the id

@@ -8,9 +8,9 @@ import (
 )
 
 var albums = []domain.Album{
-	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
+	{ID: domain.NewAlbumId("1"), Title: domain.NewAlbumTitle("Blue Train"), Artist: domain.NewAlbumArtist("John Coltrane"), Price: domain.NewAlbumPrice(32.3)},
+	{ID: domain.NewAlbumId("2"), Title: domain.NewAlbumTitle("Jeru"), Artist: domain.NewAlbumArtist("Gerry Mulligan"), Price: domain.NewAlbumPrice(12.13)},
+	{ID: domain.NewAlbumId("3"), Title: domain.NewAlbumTitle("Sarah Vaughan and Clifford Brown"), Artist: domain.NewAlbumArtist("Sarah Vaughan"), Price: domain.NewAlbumPrice(22.3)},
 }
 
 type AlbumServiceFactory struct {
