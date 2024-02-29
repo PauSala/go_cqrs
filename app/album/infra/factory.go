@@ -1,8 +1,8 @@
 package infra
 
 import (
-	"web-wervice/album/application"
-	"web-wervice/album/domain"
+	"web-wervice/app/album/application"
+	"web-wervice/app/album/domain"
 )
 
 var albums = []domain.Album{

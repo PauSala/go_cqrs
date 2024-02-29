@@ -1,6 +1,6 @@
 package application
 
-import "web-wervice/album/domain"
+import "web-wervice/app/album/domain"
 
 type GetAllAlbumsService struct {
 	AlbumRepository domain.AlbumRepository

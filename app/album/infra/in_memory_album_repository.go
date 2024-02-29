@@ -1,6 +1,6 @@
 package infra
 
-import "web-wervice/album/domain"
+import "web-wervice/app/album/domain"
 
 type InMemoryAlbumRepository struct {
 	albums []domain.Album

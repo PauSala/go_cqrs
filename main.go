@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	album "web-wervice/album/domain"
-	infra "web-wervice/album/infra"
+	album "web-wervice/app/album/domain"
+	infra "web-wervice/app/album/infra"
 
 	"github.com/gin-gonic/gin"
 )
