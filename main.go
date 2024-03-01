@@ -25,7 +25,6 @@ func main() {
 	queryBus.RegisterHandler(&find.FindAlbumQuery{}, query_handler)
 
 	router := gin.Default()
-	/* router.GET("/albums", getAlbums) */
 	router.GET("/albums/:id", albumFinderController)
 	router.POST("/albums", postAlbumController)
 	router.Run("localhost:8080")

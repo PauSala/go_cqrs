@@ -21,6 +21,6 @@ func (r *AlbumCreator) Run(artist string, id string, price float64, title string
 	return nil
 }
 
-func NewAlbumCreator(r domain.AlbumRepository) *AlbumCreator {
-	return &AlbumCreator{AlbumRepository: r}
+func NewAlbumCreator(r domain.AlbumRepository, cb command.CommandBus) *AlbumCreator {
+	return &AlbumCreator{AlbumRepository: r, CommandBus: cb}
 }
