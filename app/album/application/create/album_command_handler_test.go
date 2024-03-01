@@ -18,6 +18,7 @@ func TestCreateAlbumCommandHandlerShouldRejectInvalidCommands(t *testing.T) {
 	albumRepository := infra.NewInMemoryAlbumRepository([]domain.Album{})
 	commandBus := &command.MockCommandBus{}
 	albumCreator := create.NewAlbumCreator(albumRepository, commandBus)
+
 	albumCreator.Run(new(
 		domain.AlbumArtist).Value(),
 		new(domain.AlbumId).Value(),
