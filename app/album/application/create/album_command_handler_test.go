@@ -26,7 +26,7 @@ func TestCreateAlbumCommandHandlerShouldRejectInvalidCommands(t *testing.T) {
 	commandHandler := create.CreateAlbumCommandHandler{AlbumCreator: *albumCreator}
 	err := commandHandler.Handle(&MockInvalidCommand{})
 	if err == nil {
-		t.Fatalf("Expected error, got nil")
+		t.Fatalf("Expected error")
 	}
 }
 
