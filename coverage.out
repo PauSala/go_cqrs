@@ -1,0 +1,26 @@
+mode: set
+web-wervice/app/album/application/create/album_creator.go:13.89,22.2 8 1
+web-wervice/app/album/application/create/album_creator.go:24.85,26.2 1 1
+web-wervice/app/album/application/create/create_album_command.go:10.102,12.2 1 1
+web-wervice/app/album/application/create/create_album_command.go:14.49,16.2 1 0
+web-wervice/app/album/application/create/create_album_command_handler.go:12.74,14.9 2 1
+web-wervice/app/album/application/create/create_album_command_handler.go:14.9,16.3 1 1
+web-wervice/app/album/application/create/create_album_command_handler.go:17.2,21.53 5 1
+web-wervice/app/album/domain/album.go:24.41,31.2 1 1
+web-wervice/app/album/domain/album.go:33.38,35.2 1 1
+web-wervice/app/album/domain/album.go:37.93,48.2 4 1
+web-wervice/app/album/domain/album_artist.go:7.48,9.2 1 0
+web-wervice/app/album/domain/album_artist.go:11.39,13.2 1 1
+web-wervice/app/album/domain/album_artist.go:15.50,17.2 1 0
+web-wervice/app/album/domain/album_created_domain_event.go:17.67,21.2 3 1
+web-wervice/app/album/domain/album_created_domain_event.go:23.118,28.2 4 1
+web-wervice/app/album/domain/album_created_domain_event.go:30.71,34.2 1 0
+web-wervice/app/album/domain/album_id.go:7.40,9.2 1 0
+web-wervice/app/album/domain/album_id.go:11.35,13.2 1 1
+web-wervice/app/album/domain/album_id.go:15.46,17.2 1 0
+web-wervice/app/album/domain/album_price.go:7.47,9.2 1 0
+web-wervice/app/album/domain/album_price.go:11.39,13.2 1 1
+web-wervice/app/album/domain/album_price.go:15.50,17.2 1 0
+web-wervice/app/album/domain/album_tittle.go:7.46,9.2 1 0
+web-wervice/app/album/domain/album_tittle.go:11.38,13.2 1 1
+web-wervice/app/album/domain/album_tittle.go:15.49,17.2 1 0
